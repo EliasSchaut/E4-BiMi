@@ -7,7 +7,6 @@ module.exports = {
     e4_group_only: true,
     execute(ctx) {
         ctx.reply('Hello (☞ﾟヮﾟ)☞')
-
-        console.log(ctx.update)
+        console.log("Context Infos:\n", ctx.update, "\n")
     }
 }
