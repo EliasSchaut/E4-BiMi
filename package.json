@@ -3,9 +3,13 @@
   "version": "1.0.0",
   "main": "src/index.js",
   "scripts": {
-    "bot": "node ."
+    "start": "node .",
+    "pm": "pm2 start src/index.js --name e4-bimi",
+    "pm-restart": "pm2 reload e4-bimi",
+    "pm-stop": "pm2 delete e4-bimi"
   },
   "dependencies": {
+    "pm2": "^5.2.0",
     "telegraf": "^4.8.5"
   },
   "license": "MIT"
