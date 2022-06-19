@@ -1,4 +1,4 @@
-const { Telegraf } = require('telegraf')
+const {Telegraf} = require('telegraf')
 const fs = require('fs')
 const config = require('../config/config.json')
 
@@ -56,9 +56,12 @@ function link_mods() {
         }
 
         cmd_mods.push(bot.commands[command_name].execute)
-        bot.command(command_name, (ctx) => { sfn(ctx, ...cmd_mods) })
+        bot.command(command_name, (ctx) => {
+            sfn(ctx, ...cmd_mods)
+        })
     }
 }
+
 // -----------------------------------------------------------------------------
 
 function init() {
@@ -72,6 +75,24 @@ function init() {
 
 // init()
 init()
+
+
+// inline query handler
+bot.on("inline_query", async (ctx) => {
+    if (ctx.update.inline_query.query === "42") {
+        return ctx.answerInlineQuery([{
+            type: 'article',
+            id: '1',
+            title: 'The meaning of life',
+            input_message_content: {
+                message_text: 'The meaning of life is 42'
+            }
+        }])
+    }
+
+    return ctx.answerInlineQuery()
+})
+
 
 
 // Enable graceful stop
