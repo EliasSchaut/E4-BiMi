@@ -1,4 +1,4 @@
-const {Telegraf} = require('telegraf')
+const { Telegraf, Scenes } = require('telegraf')
 const fs = require('fs')
 const config = require('../config/config.json')
 
@@ -25,6 +25,18 @@ function load_mods() {
         const mod = require(`./mods/${mod_name}`)
         bot.mods[mod.name] = mod
     }
+}
+
+function load_scenes() {
+    const scene_names = fs.readdirSync("./src/scenes")
+    const scenes = []
+    for (const scene_name of scene_names) {
+        const scene = require(`./scenes/${scene_name}`)
+        scenes.push(scene.enter())
+    }
+
+    const stage = new Scenes.Stage(scenes)
+    bot.use(stage.middleware())
 }
 
 // super hacky way to link mods to commands
@@ -68,6 +80,7 @@ function init() {
     load_commands()
     load_mods()
     link_mods()
+    load_scenes()
     bot.launch()
 
     console.log("Bot started")

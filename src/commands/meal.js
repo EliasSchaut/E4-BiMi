@@ -6,7 +6,6 @@ module.exports = {
     admin_only: true,
     e4_group_only: false,
     execute(ctx) {
-        ctx.reply('This command is not implemented yet!')
-
+        console.log(ctx.stage)
     }
 }
